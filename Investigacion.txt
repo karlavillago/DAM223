@@ -1,0 +1,5 @@
+1-. Objetos, propiedades y arrays 
+son colecciones de datos relacionados que se estructuran en 
+pares de clave y valor 
+
+UTILIDAD: 
