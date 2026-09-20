@@ -1,59 +1,82 @@
-// Array de objetos que contiene los productos de cocina
-let productosCocina = [
-    { id: 1, nombre: 'sopa', precio: 60 },
-    { id: 2, nombre: 'pollo', precio: 100 },
-    { id: 3, nombre: 'chilaquiles', precio: 40 },
-    { id: 4, nombre: 'Hot cakes', precio: 30 },
-    { id: 5, nombre: 'Hamburguesa', precio: 110 },
-    { id: 6, nombre: 'Pure de papa', precio: 50 }
+// Lista maestra de productos con sus precios
+const menu = [
+    { nombre: 'Sopa', precio: 45 },
+    { nombre: 'Pollo', precio: 85 },
+    { nombre: 'Chilaquiles', precio: 70 },
+    { nombre: 'Hot cakes', precio: 60 },
+    { nombre: 'Hamburguesa', precio: 90 },
+    { nombre: 'Pure de papa', precio: 35 }
 ];
 
-// 1. LISTAR: Muestra que muestre todos los productos actuales 
-function listarProductos() {
-    console.log("=== LISTA DE PEDIDOS / PRODUCTOS ===");
-    productosCocina.forEach(p => {
-        console.log(`ID: ${p.id} | Producto: ${p.nombre} | Precio: $${p.precio}`);
-    });
-    console.log("------------------------------------\n");
+function listarMenu() {
+    return menu;
 }
 
-// 2. AGREGAR: Inserta un nuevo objeto con sus propiedades al array
-function agregarProducto(id, nombre, precio) {
-    const nuevoProducto = { id, nombre, precio };
-    productosCocina.push(nuevoProducto);
-    console.log(`¡Producto "${nombre}" agregado con éxito!\n`);
+
+function obtenerPlatillo(nombre) {
+    const busqueda = nombre.trim().toLowerCase();
+    return menu.find(platillo => platillo.nombre.toLowerCase() === busqueda) || null;
 }
 
-// 3. EDITAR: Modifica la propiedad de un producto existente buscándolo por su ID
-function editarProducto(id, nuevoPrecio) {
-    let producto = productosCocina.find(p => p.id === id);
-    if (producto) {
-        producto.precio = nuevoPrecio;
-        console.log(`¡El precio del producto con ID ${id} fue actualizado a $${nuevoPrecio}!\n`);
-    } else {
-        console.log("Producto no encontrado.\n");
+function agregarPlatillo(orden, nombre) {
+    const platillo = obtenerPlatillo(nombre);
+
+    if (platillo) {
+        orden.push({ nombre: platillo.nombre, precio: platillo.precio });
+        return platillo;
     }
+
+    return null;
 }
 
-// 4. ELIMINAR: Borra un producto del array utilizando su ID
-function eliminarProducto(id) {
-    productosCocina = productosCocina.filter(p => p.id !== id);
-    console.log(`¡Producto con ID ${id} eliminado del sistema!\n`);
+function editarPlatillo(orden, nombreAnterior, nombreNuevo) {
+    const busqueda = nombreAnterior.trim().toLowerCase();
+    const platilloEnOrden = orden.find(item => item.nombre.toLowerCase() === busqueda);
+
+    if (platilloEnOrden) {
+        // Verifica si el nuevo nombre existe en el menú para actualizar también su precio
+        const nuevoPlatilloMenu = obtenerPlatillo(nombreNuevo);
+        if (nuevoPlatilloMenu) {
+            platilloEnOrden.nombre = nuevoPlatilloMenu.nombre;
+            platilloEnOrden.precio = nuevoPlatilloMenu.precio;
+            return platilloEnOrden;
+        }
+    }
+
+    return null;
 }
 
-// --- EJECUCIÓN DE PRUEBAS ---
+function eliminarPlatillo(orden, nombre) {
+    const busqueda = nombre.trim().toLowerCase();
+    const posicion = orden.findIndex(item => item.nombre.toLowerCase() === busqueda);
 
-// Listamos el estado inicial con los platillos solicitados
-listarProductos();
+    if (posicion !== -1) {
+        return orden.splice(posicion, 1)[0];
+    }
 
-// Ejemplo de AGREGAR un nuevo platillo extra
-agregarProducto(7, "Jugo natural", 35);
-listarProductos();
+    return null;
+}
 
-// Ejemplo de EDITAR el precio de los chilaquiles (ID 3) a $45
-editarProducto(3, 45);
-listarProductos();
+function listarOrden(orden) {
+    return orden;
+}
 
-// Ejemplo de ELIMINAR la sopa (ID 1)
-eliminarProducto(1);
-listarProductos();
+// Función para calcular el total acumulado de la orden
+function calcularTotal(orden) {
+    let total = 0;
+    orden.forEach(item => {
+        total += item.precio;
+    });
+    return total;
+}
+
+module.exports = {
+    menu,
+    listarMenu,
+    obtenerPlatillo,
+    agregarPlatillo,
+    editarPlatillo,
+    eliminarPlatillo,
+    listarOrden,
+    calcularTotal
+};
