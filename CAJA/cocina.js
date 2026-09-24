@@ -179,3 +179,5 @@ function menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedid
 }
 
 export{productos,listarProductos,menuCocina,buscarProducto,agregarProducto};
+// cofee code 3
+// estuvimos trabajando con la investigación de promesas en java script 
