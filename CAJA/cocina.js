@@ -20,7 +20,7 @@ const productos=[
 
 function listarProductos(){
     for(let i=0;i<productos.length;i++){
-    console.log(`${i+1}. ${productos[i].nombre}-$${productos[i].precio}`);
+        console.log(`${i+1}. ${productos[i].nombre}-$${productos[i].precio}`);
     }
 }
 
@@ -34,7 +34,7 @@ function productosBaratos(){
     });
     console.log("\nlos baratos son");
     baratos.forEach(function(producto){
-    console.log(`${producto.nombre}-$${producto.precio}`);
+        console.log(`${producto.nombre}-$${producto.precio}`);
     });
 }
 
@@ -42,9 +42,9 @@ function productosCaros(){
     const caros=productos.filter(function(producto){
         return producto.precio>60;
     });
-    console.log("\nlos caros son:");
+    console.log("\nlos caros son");
     caros.forEach(function(producto){
-    console.log(`${producto.nombre}-$${producto.precio}`);
+        console.log(`${producto.nombre}-$${producto.precio}`);
     });
 }
 
@@ -54,28 +54,46 @@ function bebidas(){
     });
     console.log("\nbebidas");
     productosBebida.forEach(function(producto){
-     console.log(`${producto.nombre}-$${producto.precio}`);
+        console.log(`${producto.nombre}-$${producto.precio}`);
     });
 }
 
 function postres(){
     const productosPostre=productos.filter(function(producto){
-    return producto.tipo=="postre";
+        return producto.tipo=="postre";
     });
     console.log("\npostres");
     productosPostre.forEach(function(producto){
-    console.log(`${producto.nombre}-$${producto.precio}`);
+        console.log(`${producto.nombre}-$${producto.precio}`);
     });
 }
 
 function buscarProducto(nombre){
     const producto=productos.find(function(producto){
-    return producto.nombre.toLowerCase()==nombre.toLowerCase();
+        return producto.nombre.toLowerCase()==nombre.toLowerCase();
     });
     return producto;
 }
 
-function menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos){
+function preparar(pedido){
+    return new Promise(function(resolve,reject){
+        setTimeout(function(){
+            for(let i=0;i<pedido.length;i++){
+                if(pedido[i].nombre=="Pollo"){
+                    reject("falta ingrediente");
+                    return;
+                }
+                if(pedido[i].nombre=="Hamburguesa"){
+                    reject("se descompuso la estufa");
+                    return;
+                }
+            }
+            resolve("listo");
+        },2000);
+    });
+}
+
+function menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido){
     console.log("\n!! gestion de cocina !!");
     console.log("1.agregar producto");
     console.log("2.modificar producto");
@@ -83,61 +101,65 @@ function menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedid
     console.log("4.buscar productos");
     console.log("5.salir gestion cocina");
 
-    entrada.question("elige una opcion?",function(opcion){
+    entrada.question("elige una opcion? ",function(opcion){
         if(opcion=="1"){
-            listarProductos();
-            entrada.question("que producto deseas agregar? ",function(num){
-                if(num.toLowerCase()=="no"){
-                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
-                }else{
-                    const pos=Number(num)-1;
-                    if(pos>=0&&pos<productos.length){
-                    agregarPedido(productos[pos]);
-                    console.log(`se agrego: ${productos[pos].nombre}`);
+            function seleccionarProducto(){
+                listarProductos();
+                entrada.question("que producto deseas agregar? ",function(num){
+                    if(num.toLowerCase()=="no"){
+                        prepararPedido();
                     }else{
-                    console.log("no existee");
+                        const pos=Number(num)-1;
+                        if(pos>=0&&pos<productos.length){
+                            agregarPedido(productos[pos]);
+                            console.log(`se agrego: ${productos[pos].nombre}`);
+                            seleccionarProducto();
+                        }else{
+                            console.log("no existee");
+                            seleccionarProducto();
+                        }
                     }
-                    menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
-                }
-            });
+                });
+            }
+            seleccionarProducto();
         }else if(opcion=="2"){
             listarPedidos();
             if(pedidos.length>0){
                 entrada.question("numero del producto a modificar: ",function(num){
                     const pos=Number(num)-1;
                     if(pos>=0&&pos<pedidos.length){
-                    entrada.question("nuevo nombre: ",function(nombre){
-                        entrada.question("nuevo precio: ",function(precio){
-                        modificarPedido(pos,nombre,Number(precio));
-                        console.log("producto modificado");
-                        menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                        entrada.question("nuevo nombre: ",function(nombre){
+                            entrada.question("nuevo precio: ",function(precio){
+                                modificarPedido(pos,nombre,Number(precio));
+                                console.log("producto modificado");
+                                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
                             });
                         });
                     }else{
                         console.log("no existe");
-                        menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                        menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
                     }
                 });
             }else{
-                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
             }
         }else if(opcion=="3"){
             listarPedidos();
             if(pedidos.length>0){
                 entrada.question("numero del producto a eliminar: ",function(num){
                     const pos=Number(num)-1;
-                if(eliminarPedido(pos)){
-                console.log("producto eliminado");
-                }else{
-                console.log("no existee");
+                    if(eliminarPedido(pos)){
+                        console.log("producto eliminado");
+                    }else{
+                        console.log("no existee");
                     }
-                    menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                    menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
                 });
             }else{
-                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
             }
         }else if(opcion=="4"){
-            console.log("\n!! buscar productos !");
+            console.log("\n!! buscar productos !!");
             console.log("1.productos baratos");
             console.log("2.productos caros");
             console.log("3.bebidas");
@@ -154,30 +176,28 @@ function menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedid
                 }else if(busqueda=="4"){
                     postres();
                 }else if(busqueda=="5"){
-                    entrada.question("nombre del producto:",function(nombre){
+                    entrada.question("nombre del producto: ",function(nombre){
                         const producto=buscarProducto(nombre);
                         if(producto){
-                        console.log(`${producto.nombre}-$${producto.precio}`);
+                            console.log(`${producto.nombre}-$${producto.precio}`);
                         }else{
-                            onsole.log("no existe");
+                            console.log("no existe");
                         }
-                        menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                        menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
                     });
                     return;
                 }else{
-    console.log("ono existee");
+                    console.log("no existee");
                 }
-                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+                menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
             });
         }else if(opcion=="5"){
             callback();
         }else{
             console.log("no existe");
-            menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos);
+            menuCocina(entrada,callback,agregarPedido,modificarPedido,eliminarPedido,listarPedidos,pedidos,prepararPedido);
         }
     });
 }
 
-export{productos,listarProductos,menuCocina,buscarProducto,agregarProducto};
-// cofee code 3
-// estuvimos trabajando con la investigación de promesas en java script 
+export{productos,listarProductos,menuCocina,buscarProducto,agregarProducto,preparar};
