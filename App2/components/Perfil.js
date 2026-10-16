@@ -1,25 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
-export const Perfil = () => {
-  return (
-    <View style={styles.perfilContainer}>
-      <Text style={styles.texto}>Nombre: Karla María Cruz Villagómez Jiménez</Text>
-      <Text style={styles.texto}>Carrera: Ing. en Tecnologías de la Información e Innovación Digital</Text>
-      <Text style={styles.texto}>Materia: Desarrollo de Aplicaciones Móviles</Text>
-      <Text style={styles.texto}>Cuatrimestre: 4to Cuatrimestre</Text>
-    </View>
-  );
+import { Text, View, Button } from 'react-native';
+import {useState } from 'react';
+export const Perfil = ({nombre, carrera , materia, cuatri}) => {
+    /*definir estado*/
+    const[mostrar,setMostrar]= useState(false);
+return (
+<View>
+<Text>{nombre}</Text>
+{ mostrar && 
+<>
+<Text>{carrera}</Text>
+<Text>{materia}</Text>
+<Text>{cuatri}</Text>
+</>
+}
+<Button title="Ver perfil" onPress={ ()=>setMostrar(true) }></Button>
+</View>
+);
 };
-
-const styles = StyleSheet.create({
-  perfilContainer: {
-    marginVertical: 10,
-    alignItems: 'center',
-  },
-  texto: {
-    fontSize: 14,
-    color: '#333',
-    marginBottom: 2,
-  },
-});
