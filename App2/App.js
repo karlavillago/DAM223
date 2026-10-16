@@ -9,7 +9,7 @@ import { Perfil } from './components/Perfil';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hola dulcesita REACT NATIVE</Text>
+      <Text>Hola Maricruz REACT NATIVE</Text>
       <Image source={require('./assets/wave.png')}></Image>
       <Saludo></Saludo>
       <Saludo2></Saludo2>
