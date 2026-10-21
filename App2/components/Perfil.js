@@ -40,6 +40,8 @@ return (
             padding:15,
             margin:10,
             backgroundColor:'',
+            alignItems:'center',
+            justifyContent:'center',
         },
 
     });
