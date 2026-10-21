@@ -9,22 +9,28 @@ import { Perfil } from './components/Perfil';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hola Maricruz REACT NATIVE</Text>
-      <Image source={require('./assets/wave.png')}></Image>
-      <Saludo></Saludo>
-      <Saludo2></Saludo2>
+     
+  
       <Perfil nombre="Karla Maria Cruz Villagomez Jimenez" 
       carrera="TIID" 
       materia="Movil"
-      cuatri="Cuarto cuatrimestre">
+      cuatri="Cuarto cuatrimestre"
+      style={styles.tarjeta1}>
       </Perfil>
       
       <Perfil nombre="Juan" 
+      carrera="Mecatronica" 
+      materia="circuitos"
+      cuatri="Cuarto cuatrimestre"
+      style={styles.tarjeta2}>
+      </Perfil> 
+
+      <Perfil nombre="paul" 
       carrera="TIID" 
       materia="Movil"
-      cuatri="Cuarto cuatrimestre">
+      cuatri="Cuarto cuatrimestre"
+      style={styles.tarjeta3}>
       </Perfil>
-      
       
       <StatusBar style="auto" />
     </View>
@@ -35,7 +41,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
+    tarjeta1:{backgroundColor:'violet'},
+    tarjeta2:{backgroundColor:'green'},
+    tarjeta3:{backgroundColor:'azure'},
 });
