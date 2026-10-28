@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Perfil } from '../components/Perfil';
 
 
-export default function MenuScreen() {
+export default function TarjetasScreen() {
   return (
     <View style={styles.container}>
      
@@ -15,7 +15,7 @@ export default function MenuScreen() {
       style={styles.tarjeta1}>
       </Perfil>
       
-      <Perfil nombre="Juan" 
+      <Perfil nombre="Cristopher" 
       carrera="Mecatronica" 
       materia="circuitos"
       cuatri="Cuarto cuatrimestre"
