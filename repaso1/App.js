@@ -51,8 +51,8 @@ export default function App() {
       '\nCarrera: ' + carrera +
       '\nSemestre: ' + semestre +
       '\nTaller: ' + (taller ? 'Sí' : 'No') +
-      '\nConstancia: ' + (constancia ? 'Sí' : 'No') +
-      '\nDeportes: ' + (deportes ? 'Sí' : 'No')
+      '\nConstancia: ' + (constancia ? 'Sí' : 'No') +  
+      '\nDeportes: ' + (deportes ? 'Sí' : 'No')  
     );
 
   };
