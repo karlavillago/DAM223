@@ -1,49 +1,37 @@
+// Zona de importaciones
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Perfil } from '../components/Perfil';
+import { StyleSheet, View } from 'react-native'; 
+import { Perfil } from '../componentes/Perfil';
 
-
+// Zona numero 2 "MAIN"
 export default function TarjetasScreen() {
   return (
     <View style={styles.container}>
-     
   
-      <Perfil nombre="Maricruz" 
-      carrera="TIID" 
-      materia="Movil"
-      cuatri="Cuarto cuatrimestre"
-      style={styles.tarjeta1}>
-      </Perfil>
-      
-      <Perfil nombre="Cristopher" 
-      carrera="Mecatronica" 
-      materia="circuitos"
-      cuatri="Cuarto cuatrimestre"
-      style={styles.tarjeta2}>
-      </Perfil> 
-
-      <Perfil nombre="Ricardo" 
-      carrera="TIID" 
-      materia="Movil"
-      cuatri="Cuarto cuatrimestre"
-      style={styles.tarjeta3}>
-      </Perfil>
-      
-      
+      <Perfil nombre="Paul" carrera="TIID" materia="APPS MOVILES" cuatrimestre="4to Cuatrimestre" style={styles.tarjeta1}></Perfil>
+      <Perfil nombre="Miguel" carrera="TIID" materia="APPS MOVILES" cuatrimestre="4to Cuatrimestre" style={styles.tarjeta2}></Perfil>
+      <Perfil nombre="Iancarlo" carrera="TIID" materia="PROGRAMACIÓN" cuatrimestre="4to Cuatrimestre" style={styles.tarjeta3}></Perfil>
       <StatusBar style="auto" />
     </View>
   );
 }
-/* 3.ZONA DE LA ESTETICA */
+
+// ZONA DE ESTILOS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#4e4d4d',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-    tarjeta1:{backgroundColor:'violet'},
-    tarjeta2:{backgroundColor:'yellow'},
-    tarjeta3:{backgroundColor:'azure'},
+  tarjeta1: { 
+    backgroundColor: 'pink' 
+  },
+  tarjeta2: { 
+    backgroundColor: 'orange' 
+  },
+  tarjeta3: { 
+    backgroundColor: 'green' 
+  }
 });

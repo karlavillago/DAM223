@@ -1,36 +1,29 @@
-    /* 1.ZONA DE IMPORTACIONES */
-import { StyleSheet, View , Text,ScrollView} from 'react-native';
+// Zona de importaciones
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SafeAreaEjemplo from '../components/SafeAreaEjemplo';
-import ScrollViewEjemplo from '../components/ScrollViewEjemplo';
+import SafeAreaEjemplo from '../componentes/SafeAreaEjemplo';
+import ScrollViewEjemplo from '../componentes/ScrollViewEjemplo';
+import { StyleSheet, Text } from 'react-native';
 
 
-/* 2.ZONA DEL MAIN(COMPONENTES, SCREENS) / EJECUCION*/
+// Zona numero 2 "MAIN"
 export default function SafeScreen() {
   return (
-      <SafeAreaView style={styles.container} edges={['top','bottom']}>
-
-      <Text style={styles.container}>
-        Aqui va la practica 10 - equipo de dulce
-      </Text>
-      <SafeAreaEjemplo/>
-      <ScrollViewEjemplo/>
+    <SafeAreaView style={styles.container} edges={['top', 'right', 'bottom', 'left']}>
+        <Text>Aqui va la practica 10</Text>
+        <Text>Equipo Dulce</Text>
+        <SafeAreaEjemplo />
+        <ScrollViewEjemplo />
     </SafeAreaView>
   );
 }
-/* 3.ZONA DE LA ESTETICA */
-const styles = StyleSheet.create({
- container: {
-  flex: 1,
-  backgroundColor: '#ffffff',
-  padding:15,
-},
-tituloPrincipal:{
-  fontSize:24,
-  fontWeight: 'bold',
-  textAlign: 'center',
-  marginBottom: 15,
-},
-   
 
+// ZONA DE ESTILOS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#252525',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

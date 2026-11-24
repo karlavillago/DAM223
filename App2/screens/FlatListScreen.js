@@ -43,26 +43,25 @@ function PantallaTareas() {
   const [seleccionado, setSeleccionado] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
 
-  const agregarTarea = () => {    
+  const agregarTarea = () => {
     if (!texto.trim()) return;
     setTareas((anteriores) => [
       ...anteriores,
       { id: String(Date.now()), nombre: texto.trim() },
     ]);
     setTexto("");
-  }; 
+  };
 
-  const actualizar = () => {   
+  const actualizar = () => {
     setRefreshing(true);
     setTimeout(() => {
       setTareas(TAREAS_INICIALES);
       setRefreshing(false);
-    }, 1000);   
+    }, 1000);
   };
 
   return (
-    
-    <View style={styles.pantalla}>  
+    <View style={styles.pantalla}>
       <TextInput
         style={styles.input}
         placeholder="Nueva tarea"
@@ -87,7 +86,7 @@ function PantallaTareas() {
             ]}
           >
             <Text>{item.nombre}</Text>
-          </Pressable>    
+          </Pressable>
         )}
         ListHeaderComponent={
           <Text style={styles.titulo}>Tareas ({tareas.length})</Text>
@@ -112,7 +111,7 @@ function PantallaContactos() {
     setFavoritos((anteriores) =>
       anteriores.includes(id)
         ? anteriores.filter((f) => f !== id)
-        : [...anteriores, id],   
+        : [...anteriores, id],
     );
 
   // El estado 'busqueda' determina qué secciones y contactos se muestran

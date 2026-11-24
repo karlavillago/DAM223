@@ -1,12 +1,15 @@
 console.log("Hola mundo NODE")
-let  edad1 = 19;
-let  edad2 = 21;
 
-console.log("edad promedio:");
-console.log ((edad1+edad2)/2);
+let edad = 20;
+let edad2 = 21;
+console.log("Edad Promedio: ");
+console.log((edad+edad2)/2);
 
-console.log("Medidor de procesos");
+console.log("Medidor de Procesos");
 
-console.time('Miproceso');
-for(let i=0 ;i< 100000000;i++){}
-console.timeEnd('Miproceso');
+console.time('miProceso');
+
+ for(let i=0; i<1000000000; i++){}
+
+console.timeEnd('miProceso');
+

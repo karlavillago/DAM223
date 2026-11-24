@@ -7,7 +7,8 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dam223.app2"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,11 +19,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "expo-status-bar",
-      "expo-splash-screen"
-    ]
+      "favicon": "./assets/wave.png"
+    }
   }
 }

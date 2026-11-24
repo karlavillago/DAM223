@@ -1,63 +1,80 @@
-
-import { StyleSheet, View,Text,Button } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native'; 
 import { useState } from 'react';
 import SafeScreen from './SafeScreen';
-import PressableScreen from './PressableScreen';
-import TarjetasScreen from './TarjetasScreen';
-import ActivityIndicatorScreen from './ActivityIndicatorScreen';
+import PressableScreen from './PressableScreen'; 
+import ActivityIndicatorScreen from './ActivityScreen';
 import FlatListScreen from './FlatListScreen';
-import ImageBackgroundScreen from './ImageBackgroundScreen';
-import ModalScreen from './ModalScreen';
-import TextInputScreen from './TextInputScreen';
+import ImageBackScreen  from './ImageBackScreen';
+import ModalScreen from './ModalBottomScreen';
+import TextInputScreen from './TextInputScreen'; 
 
-/* 2.ZONA DEL MAIN(COMPONENTES, SCREENS) / EJECUCION*/
 export default function MenuScreen() {
-    const[screen,setScreen]=useState('menu');
-    switch(screen){
+    const [screen, setscreen] = useState('menu');
+
+    const regresarAlMenu = () => setscreen('menu');
+
+    switch(screen) {
         case 'safe':
-            return <SafeScreen/>;
+            return <SafeScreen />;
         case 'press':
-            return <PressableScreen/>;
-        case 'tarjetas':
-            return <TarjetasScreen/>;
-             case 'ActivityIndicator':
-                return <ActivityIndicatorScreen/>;
-            case 'FlatList':
-                return <FlatListScreen/>;
-            case 'ImageBackground':
-                return <ImageBackgroundScreen/>;
-            case 'Modal':
-                return <ModalScreen/>;
-            case 'TextInput':
-                return <TextInputScreen/>;
-        case 'menu':
-           default:
-           
+            return <PressableScreen />;
+        case 'tarjetas': 
+            return <Text style={{color: '#fff'}}>Pantalla Tarjetas</Text>; 
+        case 'text':
             return (
-    <View style={styles.container}>
-        <Text> Menu de practicas </Text>
-        <Button title="Practica Tarjetas" onPress={()=>setScreen('tarjetas')}></Button>
-        <Button title="Practica SafeAreaView" onPress={()=>setScreen('safe')}></Button>
-        <Button title="Practica Presseable" onPress={()=>setScreen('press')}></Button>
-        <Button title="Practica ActivityIndicator" onPress={()=>setScreen('ActivityIndicator')}></Button>
-        <Button title="Practica FlatList" onPress={()=>setScreen('FlatList')}></Button>
-        <Button title="Practica ImageBackground" onPress={()=>setScreen('ImageBackground')}></Button>
-        <Button title="Practica Modal" onPress={()=>setScreen('Modal')}></Button>
-        <Button title="Practica TextInput" onPress={()=>setScreen('TextInput')}></Button>
-    
-    </View>
-    
-  );
-} //este switch
-} // este funcion
-/* 3.ZONA DE LA ESTETICA */
+              <View style={{ flex: 1, width: '100%' }}>
+                
+                <TextInputScreen />
+              </View>
+            );
+        case 'flat':
+            return <FlatListScreen />;
+        case 'image': 
+            return <ImageBackScreen />;
+        case 'modal': 
+            return <ModalScreen/>;
+        case 'activity':
+            return <ActivityIndicatorScreen/>;
+        case 'menu':
+        default:
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.tituloMenu}>Menu de Practicas</Text>
+                    
+                    <Button title="Practica Tarjetas" onPress={() => setscreen('tarjetas')} />
+                    
+                    <Button title="Practica SafeAreaView" onPress={() => setscreen('safe')} />
+                    
+                    <Button title="Practica Pressable" onPress={() => setscreen('press')} />
+
+                    <Button title="Practica ActivityIndicator" onPress={() => setscreen('activity')}/>
+                    
+                    <Button title="Practica FlatList" onPress={() => setscreen('flat')} />
+                    
+                    <Button title="Practica ImageBack" onPress={() => setscreen('image')} />
+                    
+                    <Button title="Practica Modal Bottom" onPress={() => setscreen('modal')} />
+                    
+                    <Button title="Practica TextInput" onPress={() => setscreen('text')}/>
+
+                </View>
+            );
+    }
+} 
+
 const styles = StyleSheet.create({
- container: {
-  flex: 1,
-  backgroundColor: '#fff',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center'
-},
-  
+  container: {
+    flex: 1,
+    backgroundColor: '#252525',
+    flexDirection: 'column', 
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  tituloMenu: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  }
 });
